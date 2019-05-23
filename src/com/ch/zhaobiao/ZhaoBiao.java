@@ -25,50 +25,46 @@ public class ZhaoBiao {
 		ArrayList<String> url = new ArrayList<>();
 		List<WebSite> listWebSite = operation.webSiteQuery(conn,st,sql);
 		for (WebSite webSite : listWebSite) {
-			//ÅĞ¶ÏÊÇ·ñ²É¼¯ state£¬1 ²É¼¯£¬0 ²»²É¼¯
+			//åˆ¤æ–­æ˜¯å¦é‡‡é›† stateï¼Œ1 é‡‡é›†ï¼Œ0 ä¸é‡‡é›†
 			if(webSite.getState()==1){
-				//ÅĞ¶ÏÊÇ·ñÕ¾ÄÚËÑË÷ issearcher£¬1 ÊÇ£¬0 ²»ÊÇ				
+				//åˆ¤æ–­æ˜¯å¦ç«™å†…æœç´¢ issearcherï¼Œ1 æ˜¯ï¼Œ0 ä¸æ˜¯				
 				if(webSite.getIssearcher()==1){
-					//»ñÈ¡¹Ø¼ü×ÖÆ´½ÓÍøÖ·
+					//è·å–å…³é”®å­—æ‹¼æ¥ç½‘å€
 					String sqlKeyWord = "SELECT * FROM keyword";
 					stKeyWord = conn.createStatement();
 					listKeyWord = operation.keyWordQuery(conn, stKeyWord, sqlKeyWord);
 					int pagenum = webSite.getPagenum();
-					//ÅĞ¶ÏµÚÒ»Ò³ÊÇ·ñ´Ó0,1¿ªÊ¼(ÊÇ·ñÎª¿Õ)
+					//åˆ¤æ–­ç¬¬ä¸€é¡µæ˜¯å¦ä»0,1å¼€å§‹(æ˜¯å¦ä¸ºç©º)
 					if(webSite.getPageone()==null){
-						//Æ´½Ó¹Ø¼ü×Ö£¬»ñµÃ²É¼¯Èë¿ÚÍøÖ·
+						//æ‹¼æ¥å…³é”®å­—ï¼Œè·å¾—é‡‡é›†å…¥å£ç½‘å€
 						for (KeyWord keyWord : listKeyWord) {
-							System.out.println("²É¼¯¹Ø¼ü×Ö" +keyWord.getKeyword()+ "¿ªÊ¼");
+							System.out.println("é‡‡é›†å…³é”®å­—" +keyWord.getKeyword()+ "å¼€å§‹");
 							String urls = webSite.getCrawerurl()+keyWord.getKeyword();
 							url.add(urls);
 						}
 					} 						
 				} else if(webSite.getIssearcher()==0){
-					//Æ´½ÓÒ³Êı£¬»ñµÃ²É¼¯Èë¿ÚÍøÖ·
+					//æ‹¼æ¥é¡µæ•°ï¼Œè·å¾—é‡‡é›†å…¥å£ç½‘å€
 					String urls = webSite.getCrawerurl();					
 					url.add(urls);
 				}
 				
-				//ÅĞ¶ÏÍøÒ³ÀàĞÍ 1 ¾²Ì¬£¬2 Òì²½
+				//åˆ¤æ–­ç½‘é¡µç±»å‹ 1 é™æ€ï¼Œ2 å¼‚æ­¥
 				
 				if(webSite.getUrlwebtype()==1){
-					//¾²Ì¬ client£¬jsoup£»1xpath£¬2css
-					HttpStatical statical = new HttpStatical();
-					
-					
-					 
+					//é™æ€ clientï¼Œjsoupï¼›1xpathï¼Œ2css
+					HttpStatical statical = new HttpStatical();					
 				} else if(webSite.getUrlwebtype()==2){
-					//Òì²½ selenium£¬unit
-					HttpDynamical dynamical = new HttpDynamical();
-								
+					//å¼‚æ­¥ seleniumï¼Œunit
+					HttpDynamical dynamical = new HttpDynamical();								
 				}
 				if(webSite.getPreurl()!=null){
 					String urlZi = "";
 				} else {
 					String urlZi = "";
 				}
-				//redisÈ¥ÖØ
-				//ÅĞ¶ÏÄÚÈİÒ³ÀàĞÍ
+				//rediså»é‡
+				//åˆ¤æ–­å†…å®¹é¡µç±»å‹
 				if(webSite.getContentwebtype()==1){
 					
 				} else if (webSite.getContentwebtype()==2){
@@ -83,16 +79,13 @@ public class ZhaoBiao {
 					
 				}else if(webSite.getCharset()=="gb2312"){
 					
-				}
-		
+				}		
 		}else {
-				System.out.println("¸ÃÍøÖ·²»²É¼¯");
-				break;				
+			System.out.println("è¯¥ç½‘å€ä¸é‡‡é›†");
+			break;				
 			}
 		}
 		}
-
-	
 
 	public static void main(String[] args) throws SQLException {
 		ZhaoBiao zb = new ZhaoBiao();
