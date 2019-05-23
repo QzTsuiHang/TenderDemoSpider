@@ -14,7 +14,7 @@ import redis.clients.jedis.ShardedJedis;
 
 public class HttpStatical {
 	public void staticalCollect() throws SQLException{
-		Jedis	 jedis =new RedisConnection().jedis;
+	Jedis jedis =new RedisConnection().jedis;
     	ShardedJedis shardedJedis =new RedisConnection().shardedJedis;
     	MysqlOperation operation = new MysqlOperation();
     	Connection conn = operation.mysqlConn();
@@ -23,4 +23,4 @@ public class HttpStatical {
     	List<KeyWord> list = operation.keyWordQuery(conn, st, sql);	
     	
 	}
-			 }
+}
